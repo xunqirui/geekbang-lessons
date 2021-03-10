@@ -1,0 +1,28 @@
+# 第一周作业（2021-03-03）
+- 通过自研 Web MVC 框架实现（可以自己实现）一个用户 注册，forward 到一个成功的页面（JSP 用法）
+    - /register
+- 通过 Controller -> Service -> Repository 实现（数据库实 现）
+- （非必须）JDNI 的方式获取数据库源（DataSource）， 在获取 Connection
+
+## 说明
+- 均已完成，
+- 注册页面 http://localhost:8080/register/page
+- jndi 获取的 dataSource 通过 servletContext 监听器 org.geektimes.projects.user.web.listener.ComponentContextInitializerListener 注入到 DBConnectionManager 中
+
+
+# 第二周作业（2021-03-10）
+通过课堂上的简易版依赖注入和依赖查找，实现用户注册功能
+- 通过 UserService 实现用户注册
+- 注册用户需要校验
+  - Id：必须大于 0 的整数
+  - 密码：6-32 位
+  - 电话号码：采用中国大陆方式（11 位校验）
+  
+## 完成情况说明
+- 所有要求均已完成
+- 实现说明
+  - 将 ComponentContext 放入了 my-web-mvc 模块，通过在 context.xml 里注入的模式，实现了 Controller、Service、Repository 依赖注入和依赖查找的功能。
+  - 由于 ServletContextListener 的执行顺序是在调用自定义 servlet init 方法之前，所以修改了 FrontControllerServlet 类的初始化方法，之前是通过 spi 的方式来获取 controller 再做相关的映射，现改为通过 ComponentContext 来获取 Controller 实现类
+  - 校验的时候，如果数据不符合，会返回一个错误页面，并将错误的消息文案打印在游览器页面上
+  - 用户注册方法之前通过 jdbc 调用，现改为通过 jpa 来进行存储，并通过是否返回了 id 来判断注册是否成功
+- 注册页面地址：http://localhost:8080/register/page
