@@ -7,5 +7,6 @@
 	<div class="container-lg">
 		<!-- Content here -->
 		注册失败
+		<%=request.getAttribute("reason")%>
 	</div>
 </body>

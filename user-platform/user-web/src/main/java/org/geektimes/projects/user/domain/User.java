@@ -1,5 +1,9 @@
 package org.geektimes.projects.user.domain;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 /**
@@ -7,16 +11,29 @@ import java.util.Objects;
  *
  * @since 1.0
  */
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.AUTO
+    )
+    @Min(1)
     private Long id;
 
+    @Column
     private String name;
 
+    @Column
+    @Size(min = 6, max = 32)
     private String password;
 
+    @Column
     private String email;
 
+    @Column
+    @Pattern(regexp = "^[1][3,4,5,6,7,8,9][0-9]{9}$", message = "手机号格式有误")
     private String phoneNumber;
 
     public Long getId() {

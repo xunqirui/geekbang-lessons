@@ -3,22 +3,22 @@ package org.geektimes.projects.user.web.controller;
 import org.geektimes.projects.user.domain.User;
 import org.geektimes.projects.user.service.UserService;
 import org.geektimes.projects.user.service.UserServiceImpl;
-import org.geektimes.projects.user.util.Convert;
-import org.geektimes.projects.user.util.StringToLongConvert;
+import org.geektimes.projects.user.validator.DelegatingValidator;
 import org.geektimes.web.mvc.controller.PageController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 
 /**
@@ -30,7 +30,11 @@ import java.util.function.Function;
 @Path("/register")
 public class UserController implements PageController {
 
-    private UserService userService = new UserServiceImpl();
+    @Resource(name = "bean/UserService")
+    private UserService userService;
+
+    @Resource(name = "bean/DelegatingValidator")
+    private DelegatingValidator delegatingValidator;
 
     /**
      * 登录页面 jsp
@@ -45,10 +49,20 @@ public class UserController implements PageController {
     @Path("")
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Throwable {
         User user = setUserParam(request);
+        // 校验 user
+        Set<ConstraintViolation<User>> constraintViolations = delegatingValidator.validate(user);
+        if (constraintViolations.size() > 0){
+            StringBuilder builder = new StringBuilder();
+            constraintViolations.forEach(c -> builder.append(c.getMessage() + ","));
+            String message = builder.toString();
+            request.setAttribute("reason", message.substring(0, message.length() - 1));
+            return "register-false.jsp";
+        }
         boolean flag = userService.register(user);
-        if (flag){
+        if (flag) {
             return "register-success.jsp";
-        }else{
+        } else {
+            request.setAttribute("reason", "数据插入失败");
             return "register-false.jsp";
         }
     }
@@ -69,7 +83,7 @@ public class UserController implements PageController {
             Class propertyClass = propertyDescriptor.getPropertyType();
             if (paramValue != null && STRING_CONVERT_MAPPING.get(propertyClass) != null) {
                 propertyDescriptor.getWriteMethod().invoke(user, STRING_CONVERT_MAPPING.get(propertyClass).apply(paramValue));
-            }else if (paramValue != null){
+            } else if (paramValue != null) {
                 propertyDescriptor.getWriteMethod().invoke(user, paramValue);
             }
         }

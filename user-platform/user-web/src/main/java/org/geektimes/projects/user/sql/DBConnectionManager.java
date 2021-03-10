@@ -2,6 +2,7 @@ package org.geektimes.projects.user.sql;
 
 import org.geektimes.projects.user.domain.User;
 
+import javax.annotation.Resource;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -18,7 +19,8 @@ import java.util.Properties;
 
 public class DBConnectionManager {
 
-    private static DataSource dataSource;
+    @Resource(name = "jdbc/UserPlatformDB")
+    private DataSource dataSource;
 
     public Connection getConnection() {
         try {
@@ -30,15 +32,8 @@ public class DBConnectionManager {
         return null;
     }
 
-    public DBConnectionManager() {
-        createUserChart();
-    }
 
-    public static void setDataSource(DataSource initDataSource){
-        dataSource = initDataSource;
-    }
-
-    private void createUserChart() {
+    public void createUserChart() {
         try {
 //            Context initCtx = new InitialContext();
 //            Context envCtx = (Context) initCtx.lookup("java:comp/env");

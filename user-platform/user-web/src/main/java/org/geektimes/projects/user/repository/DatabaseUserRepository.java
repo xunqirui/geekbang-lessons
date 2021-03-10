@@ -2,8 +2,12 @@ package org.geektimes.projects.user.repository;
 
 import org.geektimes.function.ThrowableFunction;
 import org.geektimes.projects.user.domain.User;
+import org.geektimes.projects.user.orm.jpa.DelegatingEntityManager;
 import org.geektimes.projects.user.sql.DBConnectionManager;
+import org.geektimes.projects.user.validator.DelegatingValidator;
 
+import javax.annotation.Resource;
+import javax.validation.ConstraintViolation;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -22,6 +26,12 @@ import static org.apache.commons.lang.ClassUtils.wrapperToPrimitive;
 
 public class DatabaseUserRepository implements UserRepository {
 
+    @Resource(name = "bean/DBConnectionManager")
+    private DBConnectionManager dbConnectionManager;
+
+    @Resource(name = "bean/EntityManager")
+    private DelegatingEntityManager delegatingEntityManager;
+
     private static Logger logger = Logger.getLogger(DatabaseUserRepository.class.getName());
 
     /**
@@ -35,20 +45,16 @@ public class DatabaseUserRepository implements UserRepository {
 
     public static final String QUERY_ALL_USERS_DML_SQL = "SELECT id,name,password,email,phoneNumber FROM users";
 
-    private final DBConnectionManager dbConnectionManager;
-
-    public DatabaseUserRepository(DBConnectionManager dbConnectionManager) {
-        this.dbConnectionManager = dbConnectionManager;
-    }
-
     private Connection getConnection() {
         return dbConnectionManager.getConnection();
     }
 
     @Override
     public boolean save(User user) {
-        return executeUpdate("insert into users (name, password, email, phoneNumber) values(?, ?, ? ,?)",
-                COMMON_EXCEPTION_HANDLER, user.getName(), user.getPassword(), user.getEmail(), user.getPhoneNumber());
+        delegatingEntityManager.persist(user);
+        return user.getId() != null;
+//        return executeUpdate("insert into users (name, password, email, phoneNumber) values(?, ?, ? ,?)",
+//                COMMON_EXCEPTION_HANDLER, user.getName(), user.getPassword(), user.getEmail(), user.getPhoneNumber());
     }
 
     @Override
