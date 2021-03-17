@@ -1,0 +1,2 @@
+org.geektimes.configuration.microprofile.config.source.OSSystemConfigSource
+org.geektimes.configuration.microprofile.config.source.LocalFileConfigSource
