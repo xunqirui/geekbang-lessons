@@ -23,9 +23,9 @@ public class TestListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        ComponentContext componentContext = ComponentContext.getInstance();
-        DBConnectionManager dbConnectionManager = componentContext.getComponent("bean/DBConnectionManager");
-        dbConnectionManager.createUserChart();
+//        ComponentContext componentContext = ComponentContext.getInstance();
+//        DBConnectionManager dbConnectionManager = componentContext.getComponent("bean/DBConnectionManager");
+//        dbConnectionManager.createUserChart();
         // 注册 MBean
         try {
             registerMBean();
@@ -35,10 +35,10 @@ public class TestListener implements ServletContextListener {
         }
 
         // 获取配置
-        ConfigProviderResolver configProviderResolver = ConfigProviderResolver.instance();
-        Config config = configProviderResolver.getConfig();
-        String applicationName = config.getValue("application_name", String.class);
-        System.out.println("当前 applicationName 为 " + applicationName);
+//        ConfigProviderResolver configProviderResolver = ConfigProviderResolver.instance();
+//        Config config = configProviderResolver.getConfig();
+//        String applicationName = config.getValue("application_name", String.class);
+//        System.out.println("当前 applicationName 为 " + applicationName);
     }
 
     @Override

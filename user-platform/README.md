@@ -57,3 +57,18 @@
     通过 TestListener 注入 MBean，访问地址：http://localhost:8080/jolokia/read/org.geektimes.projects.user.management:type=UserInfo
     
     通过 TestListener 读取 application_name
+   
+# 第四周作业（2021-03-24）
+1. 完善 my dependency-injection 模块
+    - 脱离 web.xml 配置实现 ComponentContext 自动初始化
+    - 使用独立模块并且能够在 user-web 中运行成功
+    
+2. 完善 my-configuration 模块
+    - Config 对象如何能被 my-web-mvc 使用
+        - 可能在 ServletContext 获取
+        - 如何通过 ThreadLocal 获取
+
+3. 去提前阅读 Servlet 规范中 Security 章节（Servlet 容器安 全）
+
+## 完成情况说明
+作业一已经完成，作业二的通过 ThreadLocal 获取不太清楚，没有实现，获取 config 方式，通过增加了一个 ConfigController 方法返回当前获取到的 application.name，作业三已完成

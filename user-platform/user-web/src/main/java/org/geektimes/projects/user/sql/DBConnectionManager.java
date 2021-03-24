@@ -2,6 +2,7 @@ package org.geektimes.projects.user.sql;
 
 import org.geektimes.projects.user.domain.User;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -32,6 +33,10 @@ public class DBConnectionManager {
         return null;
     }
 
+    @PostConstruct
+    public void initChart(){
+        createUserChart();
+    }
 
     public void createUserChart() {
         try {

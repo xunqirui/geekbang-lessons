@@ -141,7 +141,7 @@ public class FrontControllerServlet extends HttpServlet {
                         String viewPath = (String) handlerMethodInfo.getHandlerMethod().invoke(controller, request, response);
                         // 页面请求 forward
                         // request -> RequestDispatcher forward
-                        // RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewPath);
+//                         RequestDispatcher requestDispatcher = request.getRequestDispatcher(viewPath);
                         // ServletContext -> RequestDispatcher forward
                         // ServletContext -> RequestDispatcher 必须以 "/" 开头
                         ServletContext servletContext = request.getServletContext();
