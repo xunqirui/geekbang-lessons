@@ -87,7 +87,7 @@
 
 2. 第二个作业
 
-    - my-rest-client 模块中增加一个类 org.geektimes.rest.client.HttpPostInvocation，通过里面调用 post 方法
+    - my-rest-client 模块中增加一个类 org.geektimes.rest.client.HttpPostInvocation，里面调用 post 方法，支持 json 和 form 表单两种模式
     - my-rest-client 的 test 中 org.geektimes.rest.demo.RestClientDemo 类写了对应的 post 请求测试方法，需要启动 my-web-mvc 模块对应的 jar 包之后才能进行测试
     - 修改了 my-web-mvc 模块中的 org.geektimes.web.mvc.FrontControllerServlet#service() 方法，提供了 RestController 的支持，为 post 方法调用时返回对应实体类而不返回页面提供接口支持
     - 在 user-web 模块中增加了一个 org.geektimes.projects.user.web.controller.UserRestController 类，来提供 Rest 请求的接口
