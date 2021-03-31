@@ -72,3 +72,26 @@
 
 ## 完成情况说明
 作业一已经完成，作业二的通过 ThreadLocal 获取不太清楚，没有实现，获取 config 方式，通过增加了一个 ConfigController 方法返回当前获取到的 application.name，作业三已完成
+
+# 第五周作业（2021-03-31）
+1. 复本程序 org.geektimes.reactive.streams 包下的打印逻辑问题
+
+2. 继续完善 my-rest-client POST 方法
+
+3. （可选）读一下 Servlet 3.0 关于 Servlet 异步
+    - AsyncContext
+## 完成情况说明
+1. 第一个作业
+
+    - org.geektimes.reactive.streams.BusinessSubscriber#onNext 将打印方法上移至方法第一行，即可打印出所有的循环的值
+
+2. 第二个作业
+
+    - my-rest-client 模块中增加一个类 org.geektimes.rest.client.HttpPostInvocation，通过里面调用 post 方法
+    - my-rest-client 的 test 中 org.geektimes.rest.demo.RestClientDemo 类写了对应的 post 请求测试方法，需要启动 my-web-mvc 模块对应的 jar 包之后才能进行测试
+    - 修改了 my-web-mvc 模块中的 org.geektimes.web.mvc.FrontControllerServlet#service() 方法，提供了 RestController 的支持，为 post 方法调用时返回对应实体类而不返回页面提供接口支持
+    - 在 user-web 模块中增加了一个 org.geektimes.projects.user.web.controller.UserRestController 类，来提供 Rest 请求的接口
+3. 第三个作业
+
+    - 还未开始阅读，争取在老师上课前读一遍
+    

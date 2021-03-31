@@ -1,5 +1,6 @@
 package org.geektimes.web.mvc;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
 import org.geektimes.context.ComponentContext;
 import org.geektimes.web.mvc.controller.Controller;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.HttpMethod;
 import javax.ws.rs.Path;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -34,6 +36,8 @@ public class FrontControllerServlet extends HttpServlet {
      * 请求路径和 {@link HandlerMethodInfo} 映射关系缓存
      */
     private Map<String, HandlerMethodInfo> handleMethodInfoMapping = new HashMap<>();
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
 
     /**
      * 初始化 Servlet
@@ -153,6 +157,17 @@ public class FrontControllerServlet extends HttpServlet {
                         return;
                     } else if (controller instanceof RestController) {
                         // TODO
+                        Object object = handlerMethodInfo.getHandlerMethod().invoke(controller, request);
+                        PrintWriter printWriter = response.getWriter();
+                        if (object != null){
+                            if (object.getClass().isAssignableFrom(String.class)){
+                                printWriter.print(object);
+                            } else {
+                                String jsonData = objectMapper.writeValueAsString(object);
+                                printWriter.print(jsonData);
+                            }
+                        }
+                        printWriter.flush();
                     }
 
                 }

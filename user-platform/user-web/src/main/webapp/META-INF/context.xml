@@ -26,15 +26,20 @@
 			  type="org.geektimes.projects.user.service.UserServiceImpl"
 			  factory="org.apache.naming.factory.BeanFactory" />
 
-	<!-- controller -->
+	<!-- controller start -->
 	<Resource name="bean/UserController" auth="Container"
 			  type="org.geektimes.projects.user.web.controller.UserController"
 			  factory="org.apache.naming.factory.BeanFactory" />
 
-	<!-- controller -->
 	<Resource name="bean/ConfigController" auth="Container"
 			  type="org.geektimes.projects.user.web.controller.ConfigController"
 			  factory="org.apache.naming.factory.BeanFactory" />
+
+	<Resource name="bean/UserRestController" auth="Container"
+			  type="org.geektimes.projects.user.web.controller.UserRestController"
+			  factory="org.apache.naming.factory.BeanFactory" />
+
+	<!-- controller end -->
 
 	<!-- repository -->
 	<Resource name="bean/DatabaseUserRepository" auth="Container"

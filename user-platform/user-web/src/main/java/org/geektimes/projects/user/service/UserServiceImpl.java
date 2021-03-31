@@ -2,7 +2,6 @@ package org.geektimes.projects.user.service;
 
 import org.geektimes.projects.user.domain.User;
 import org.geektimes.projects.user.repository.DatabaseUserRepository;
-import org.geektimes.projects.user.sql.DBConnectionManager;
 
 import javax.annotation.Resource;
 
