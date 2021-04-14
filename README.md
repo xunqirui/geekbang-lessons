@@ -93,5 +93,15 @@
     - 在 user-web 模块中增加了一个 org.geektimes.projects.user.web.controller.UserRestController 类，来提供 Rest 请求的接口
 3. 第三个作业
 
-    - 还未开始阅读，争取在老师上课前读一遍
+    - 已完成
+
+# 第六周作业（2021-04-14）
+1. my-cache 模块
+
+    - 提供一套抽象 API 实现对象的序列化和反序列化
+    - 通过 Lettuce 实现一套 Redis CacheManager 以及 Cache
+
+## 完成情况说明
+- 抽象序列化 API 见my-serialize 模块
+- Lettuce 实现见 my-cache 中的 org.geektimes.cache.redis.LettuceCache 和 org.geektimes.cache.redis.LettuceCacheManager
     
