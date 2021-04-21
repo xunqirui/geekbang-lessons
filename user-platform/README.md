@@ -105,3 +105,10 @@
 - 抽象序列化 API 见my-serialize 模块
 - Lettuce 实现见 my-cache 中的 org.geektimes.cache.redis.LettuceCache 和 org.geektimes.cache.redis.LettuceCacheManager
     
+# 第七周作业（2021-04-21）
+1. 使用 Spring Boot 或 servlet 来实现一个整合Gitee/或者Github OAuth2 认证
+
+## 作业完成情况
+使用 servlet 进行了实现，认证 controller 在 org.geektimes.projects.user.web.controller.OauthController，由于最近工作繁忙，没有做用户与 token 之间的绑定策略，只是在前端页面显示了 accessToken
+
+访问地址为 http://127.0.0.1/auth

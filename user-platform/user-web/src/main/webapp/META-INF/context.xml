@@ -39,6 +39,10 @@
 			  type="org.geektimes.projects.user.web.controller.UserRestController"
 			  factory="org.apache.naming.factory.BeanFactory" />
 
+	<Resource name="bean/OauthController" auth="Container"
+			  type="org.geektimes.projects.user.web.controller.OauthController"
+			  factory="org.apache.naming.factory.BeanFactory" />
+
 	<!-- controller end -->
 
 	<!-- repository -->
